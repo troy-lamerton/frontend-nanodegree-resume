@@ -21,9 +21,19 @@ var work = {
 };
 
 var education = {
-  name: "Victoria University",
-  years: 1.5,
-  city: "Wellington"
+  "schools":[
+      {
+        "name": "Victoria University",
+        "dates": "2014 to 2015",
+        "city": "Wellington"
+      },
+      { 
+        "name": "Hutt Internationl Boys School",
+        "dates": "2007 to 2013",
+        "city": "Upper Hutt",
+        "qualification": "NCEA Level 3 with Merit endorsement"
+      }
+  ]
 };
 
 /* Bio replacements and updating html */
@@ -43,10 +53,10 @@ $('#header').append(allSkills);
 
 /* Work replacements and updating html */
 var myWorkStart = HTMLworkStart;
-var myWorkEmployer = HTMLworkEmployer.replace('%data%', work.employer);
-var myWorkTitle = HTMLworkTitle.replace('%data%', work.position);
-var myWorkDates = HTMLworkDates.replace('%data%', work.dates);
-var myWorkLocation = HTMLworkLocation.replace('%data%', work.city);
+var myWorkEmployer = HTMLworkEmployer.replace('%data%', work["employer"]);
+var myWorkTitle = HTMLworkTitle.replace('%data%', work["position"]);
+var myWorkDates = HTMLworkDates.replace('%data%', work["dates"]);
+var myWorkLocation = HTMLworkLocation.replace('%data%', work["city"]);
 $('#workExperience').append(myWorkStart);
 $('#workExperience').append(myWorkEmployer + myWorkTitle);
 $('#workExperience').append(myWorkDates);
@@ -54,8 +64,10 @@ $('#workExperience').append(myWorkLocation);
 
 /* School replacements and updating html */
 $('#education').append(HTMLschoolStart);
-var mySchoolName = HTMLschoolName.replace('%data%', education.name);
-var mySchoolLocation = HTMLschoolLocation.replace('%data%', education.city);
+var mySchoolName = HTMLschoolName.replace('%data%', education.schools[0].name);
+var mySchoolDates = HTMLschoolDates.replace('%data%', education.schools[0].dates);
+var mySchoolLocation = HTMLschoolLocation.replace('%data%', education.schools[0].city);
 
 $('#education').append(mySchoolName);
+$('#education').append(mySchoolDates);
 $('#education').append(mySchoolLocation);
