@@ -16,7 +16,7 @@ for (var i in bio["skills"]) {
 var work = {
   position: "Content Loader",
   employer: "Education Review Office",
-  years: 1,
+  dates: "February 2016 to Present",
   city: "Wellington"
 };
 
@@ -26,7 +26,7 @@ var education = {
   city: "Wellington"
 };
 
-
+/* Bio replacements and updating html */
 var formattedName = HTMLheaderName.replace('%data%', bio.name);
 var formattedRole = HTMLheaderRole.replace('%data%', bio.role);
 var myPicture = HTMLbioPic.replace('%data%', bio.picture);
@@ -40,3 +40,22 @@ $('#header').append(myWelcomeMessage);
 $('#topContacts').append(myEmail);
 $('#header').append(myPicture);
 $('#header').append(allSkills);
+
+/* Work replacements and updating html */
+var myWorkStart = HTMLworkStart;
+var myWorkEmployer = HTMLworkEmployer.replace('%data%', work.employer);
+var myWorkTitle = HTMLworkTitle.replace('%data%', work.position);
+var myWorkDates = HTMLworkDates.replace('%data%', work.dates);
+var myWorkLocation = HTMLworkLocation.replace('%data%', work.city);
+$('#workExperience').append(myWorkStart);
+$('#workExperience').append(myWorkEmployer + myWorkTitle);
+$('#workExperience').append(myWorkDates);
+$('#workExperience').append(myWorkLocation);
+
+/* School replacements and updating html */
+$('#education').append(HTMLschoolStart);
+var mySchoolName = HTMLschoolName.replace('%data%', education.name);
+var mySchoolLocation = HTMLschoolLocation.replace('%data%', education.city);
+
+$('#education').append(mySchoolName);
+$('#education').append(mySchoolLocation);
