@@ -1,73 +1,98 @@
-var bio = {name: "Troy Lamerton",
-           role: "Junior Web Developer",
-           email: "troy.lamerton@gmail.com",
-           picture: "http://www.gravatar.com/avatar/0eb38fc6ee95b244b8d45757ee242763",
-           welcome: "Kia ora! This is my professional resume.",
-           skills: ["collaborating", "building websites", "analysis"]
-         };
-var allSkills = HTMLskillsStart;
-
-// add list item for each skill in array
-for (var i in bio["skills"]) {
-  allSkills += HTMLskills.replace('%data%', bio["skills"][i]);
+/* bio contains a name, role, welcomeMessage, contacts object 
+and skills array. The contacts object should contain 
+(but doesn't have to) a mobile number, email address, github username, 
+twitter handle and location. */
+var bio = {
+  "name": "Troy Lamerton",
+  "role": "Junior Web Developer",
+  "welcomeMessage": "Kia ora! This is my partially fictional resume.",
+  "contacts": {"email": "troy.lamerton@gmail.com"},
+  "skills": ["collaborating", "building websites", "analysis"]
 };
-/* End of bio */
+/* valid JSON */
 
+/* WORK EXPERIENCE */
 var work = {
-  position: "Content Loader",
-  employer: "Education Review Office",
-  dates: "February 2016 to Present",
-  city: "Wellington"
+  "jobs":[
+    {
+      "employer": "Education Review Office",
+      "title": "Content Loader",
+      "location": "Wellington",
+      "dates": "February 2016 to Present",
+      "description": "Ensuring content being moved from one web platform to another is complete and accurate for an upcoming go live date."
+    },
+    {
+      "employer": "Statistics New Zealand",
+      "title": "Web Development Contract",
+      "location": "Wellington",
+      "dates": "December 2015 to January 2016",
+      "description": "Developed a web application with a team of Statistics New Zealand employees and university students."
+    } 
+  ]
 };
+/* valid JSON */
 
+/* EDUCATION */
+/*education contains an array of schools. 
+Each school object 
+in schools contains a 
+name, 
+location, 
+degree,
+majors array, 
+dates attended
+and a url for the school's website. 
+education also contains an onlineCourses array. 
+Each onlineCourse object in onlineCourses should contain 
+a title, school, dates attended and a url for the course.*/
 var education = {
   "schools":[
       {
         "name": "Victoria University",
+        "location": "Wellington",
         "dates": "2014 to 2015",
-        "city": "Wellington"
+        "degree": "First year of Bachelor of Science",
+        "majors": ["Computer Science"],
+        "url": "http://www.hibs.school.nz/"
       },
       { 
         "name": "Hutt Internationl Boys School",
+        "location": "Upper Hutt",        
         "dates": "2007 to 2013",
-        "city": "Upper Hutt",
-        "qualification": "NCEA Level 3 with Merit endorsement"
+        "degree": "NCEA Level 3 with Merit endorsement",
+        "majors": ["Mathematics"],
+        "url": "http://www.victoria.ac.nz/"
       }
-  ]
+  ],
+  "onlineCourses": []
 };
+/* valid JSON */
 
-/* Bio replacements and updating html */
-var formattedName = HTMLheaderName.replace('%data%', bio.name);
-var formattedRole = HTMLheaderRole.replace('%data%', bio.role);
-var myPicture = HTMLbioPic.replace('%data%', bio.picture);
-var myEmail = HTMLemail.replace('%data%', bio.email);
-var myWelcomeMessage = HTMLwelcomeMsg.replace('%data%', bio.welcome);
+/* PROJECTS
+projects contains an array of projects. 
+Each project object in projects should contain a 
+title, 
+dates worked, 
+description, 
+and an images array with 
+URL strings for project images. **/
+var projects = [
+  {
+    "title": "One Rule - Arcade Game",
+    "dates": "Weekend in September 2015",
+    "description": "48-hour game design competition. We created a ball shooting puzzle game with various levels and powerups.",
+    "images": ["https://raw.githubusercontent.com/Cambis/Pixel_Jam/master/Pixel_Jam/src/game/assets/start960by540.png"]
+  },
+  {
+    "title": "CommuniMe",
+    "dates": "December 2015 to January 2016",
+    "description": "A web app that helps people move within or to Wellington suburbs.",
+    "images": ["https://pbs.twimg.com/profile_images/617497627303608320/qGImfjHJ.png",
+    "https://i.ytimg.com/vi/axEZqMBjiPI/maxresdefault.jpg"]
+  }
+];
+/* valid JSON */
 
-$('#header').prepend(formattedName);
-$('#header').append(formattedRole);
-$('#header').append(myWelcomeMessage);
-
-$('#topContacts').append(myEmail);
-$('#header').append(myPicture);
-$('#header').append(allSkills);
-
-/* Work replacements and updating html */
-var myWorkStart = HTMLworkStart;
-var myWorkEmployer = HTMLworkEmployer.replace('%data%', work["employer"]);
-var myWorkTitle = HTMLworkTitle.replace('%data%', work["position"]);
-var myWorkDates = HTMLworkDates.replace('%data%', work["dates"]);
-var myWorkLocation = HTMLworkLocation.replace('%data%', work["city"]);
-$('#workExperience').append(myWorkStart);
-$('#workExperience').append(myWorkEmployer + myWorkTitle);
-$('#workExperience').append(myWorkDates);
-$('#workExperience').append(myWorkLocation);
-
-/* School replacements and updating html */
-$('#education').append(HTMLschoolStart);
-var mySchoolName = HTMLschoolName.replace('%data%', education.schools[0].name);
-var mySchoolDates = HTMLschoolDates.replace('%data%', education.schools[0].dates);
-var mySchoolLocation = HTMLschoolLocation.replace('%data%', education.schools[0].city);
-
-$('#education').append(mySchoolName);
-$('#education').append(mySchoolDates);
-$('#education').append(mySchoolLocation);
+/* < > escaping HTML tags */
+inputText.replace('<', '&lt;')
+inputText.replace('<', '&gt;')
