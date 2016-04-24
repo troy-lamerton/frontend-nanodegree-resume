@@ -5,7 +5,7 @@ twitter handle and location. */
 var bio = {
   "name": "Troy Lamerton",
   "role": "Junior Web Developer",
-  "welcomeMessage": "Kia ora! This is my Javascript generated resume. Intended for coding practice and not public reference.",
+  "welcomeMessage": "Kia ora! This is my Javascript generated resume. Intended for coding practice and contains fictional information.",
   "contacts": {"email": "troy.lamerton@gmail.com"},
   "skills": ["collaborating", "building websites", "analysis"],
   "display": function () {
@@ -14,9 +14,9 @@ var bio = {
     var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
     var formattedWelcome = HTMLwelcomeMsg.replace('%data%', bio["welcomeMessage"]);
     var formattedEmail = HTMLemail.replace('%data%', bio["contacts"].email);
-    $("#header").append(formattedName);
-    $("#header").append(formattedRole);
-    $("#header").append(formattedWelcome);
+    $("#header").prepend(formattedWelcome);
+    $("#header").prepend(formattedRole);
+    $("#header").prepend(formattedName);
     $("#topContacts").append(formattedEmail);
 
     /* Append bio.skills to the HTML */
@@ -95,11 +95,11 @@ var education = {
         "location": "Wellington",
         "dates": "2014 to 2015",
         "degree": "First year of Bachelor of Science",
-        "majors": ["Computer Science"],
+        "majors": ["Computer Science", "Psychology"],
         "url": "http://www.hibs.school.nz/"
       },
       { 
-        "name": "Hutt Internationl Boys School",
+        "name": "Hutt International Boys School",
         "location": "Upper Hutt",        
         "dates": "2007 to 2013",
         "degree": "NCEA Level 3 with Merit endorsement",
@@ -108,30 +108,31 @@ var education = {
       }
   ],
   "onlineCourses": [],
-  "display": function () {
-    for (var school in schools) {
+  display: function () {
+    for (var school in education.schools) {
       $("#education").append(HTMLschoolStart);
 
       var schoolName = HTMLschoolName.replace("#", education.schools[school].url);
-      schoolName = schoolName.replace('%data', education.schools[school]);
-      var schoolLocation = HTMLschool.replace('%data', education.schools[school].location);
-      var schoolDates = HTMLschool.replace('%data', education.schools[school].dates);
-      var schoolDegree = HTMLschoolDegree.replace('%data', education.schools[school].degree);
+      schoolName = schoolName.replace('%data%', education.schools[school].name);
+      var schoolDegree = HTMLschoolDegree.replace('%data%', education.schools[school].degree);
+      var schoolHeading = schoolName + schoolDegree;
+      console.log(schoolHeading);
+      var schoolLocation = HTMLschoolLocation.replace('%data%', education.schools[school].location);
+      var schoolDates = HTMLschoolDates.replace('%data%', education.schools[school].dates);
       var schoolMajors = function () {
         var schoolMajorsHTML = "";
-/*        for (//) {
-          // concat major
+        for (var majorIndex in education.schools[school].majors){
+          schoolMajorsHTML += HTMLschoolMajor.replace('%data%', education.schools[school].majors[majorIndex]);
         };
-*/        return schoolMajorsHTML;
-      }
-      var schoolUrl = HTMLschool
-
-      //append the above variables
-
+        return schoolMajorsHTML;
+      };
+      $(".education-entry:last").append(schoolHeading);
+      $(".education-entry:last").append(schoolLocation);
+      $(".education-entry:last").append(schoolDates);
+      $(".education-entry:last").append(schoolMajors);
     }
   }
 };
-/* valid JSON */
 
 /* PROJECTS
 projects contains an array of projects. 
@@ -178,6 +179,7 @@ projects.display = function () {
     $(".project-entry:last").append(projDates);
     $(".project-entry:last").append(projDescription);
     $(".project-entry:last").append(projImages());
+
     if (proj == projects.length - 1){break;} 
     //break on the last array element to avoid iterating over this function
   }
@@ -189,6 +191,7 @@ projects.display();
 
 work.display();
 
+education.display();
 
 /* Name internationalizer - formats name capitalisation and cardinality of names */
 $("#main").append(internationalizeButton);
