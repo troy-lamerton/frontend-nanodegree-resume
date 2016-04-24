@@ -93,6 +93,61 @@ var projects = [
 ];
 /* valid JSON */
 
-/* < > escaping HTML tags */
-inputText.replace('<', '&lt;')
-inputText.replace('<', '&gt;')
+
+
+/* Append bio.skills to the HTML */
+//check if there are any skills in bio object
+if (bio.skills.length > 0) {
+  //if there are, append HTMLskillsStart to section.
+  $("#header").append(HTMLskillsStart);
+  //for each skills in array, append the formatted skill
+  for (var i = 0; i < bio.skills.length; i++){
+    var skillString = HTMLskills.replace('%data%', bio.skills[i]);
+    $("#skills").append(skillString);
+  };
+}
+else {
+  console.log('No skills in bio.skills array');
+};
+
+function displayWork () {
+  /* Append work object.jobs to the HTML */
+  $("#workExperience").append(HTMLworkStart);
+  for (jobIndex in work.jobs) {
+    var thisEmployer = HTMLworkEmployer.replace('%data%', work.jobs[jobIndex].employer);
+    var thisJobTitle = HTMLworkTitle.replace('%data%', work.jobs[jobIndex].title);
+    var thisJob = thisEmployer + thisJobTitle;
+    var thisDates = HTMLworkDates.replace('%data%', work.jobs[jobIndex].dates);
+    var thisLocation = HTMLworkLocation.replace('%data%', work.jobs[jobIndex].location);
+    var thisDescription = HTMLworkDescription.replace('%data%', work.jobs[jobIndex].description);
+
+    $(".work-entry:last").append(thisJob);
+    $(".work-entry:last").append(thisDates);
+    $(".work-entry:last").append(thisLocation);
+    $(".work-entry:last").append(thisDescription);
+  }
+}
+
+displayWork();
+
+
+
+/* Name internationalizer - formats name capitalisation and cardinality of names */
+$("#main").append(internationalizeButton);
+
+function inName (firstName, lastName) {
+  var names = bio.name.split(' ');
+  names[1] = names[1].toUpperCase();
+  names[0] = names[0].toLowerCase();
+  names[0] = names[0][0].toUpperCase() + names[0].slice(1);
+
+  bio.name = names[0] + " " + names[1];
+  console.log(bio.name);
+  return bio.name;
+}
+
+/* Append bio except for skills to the HTML */
+var formattedName = HTMLheaderName.replace('%data%', bio["name"]);
+var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
+$("#header").append(formattedName);
+$("#header").append(formattedRole);
