@@ -5,9 +5,35 @@ twitter handle and location. */
 var bio = {
   "name": "Troy Lamerton",
   "role": "Junior Web Developer",
-  "welcomeMessage": "Kia ora! This is my partially fictional resume.",
+  "welcomeMessage": "Kia ora! This is my Javascript generated resume. Intended for coding practice and not public reference.",
   "contacts": {"email": "troy.lamerton@gmail.com"},
-  "skills": ["collaborating", "building websites", "analysis"]
+  "skills": ["collaborating", "building websites", "analysis"],
+  "display": function () {
+    /* Append bio except for skills to the HTML */
+    var formattedName = HTMLheaderName.replace('%data%', bio["name"]);
+    var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
+    var formattedWelcome = HTMLwelcomeMsg.replace('%data%', bio["welcomeMessage"]);
+    var formattedEmail = HTMLemail.replace('%data%', bio["contacts"].email);
+    $("#header").append(formattedName);
+    $("#header").append(formattedRole);
+    $("#header").append(formattedWelcome);
+    $("#topContacts").append(formattedEmail);
+
+    /* Append bio.skills to the HTML */
+    //check if there are any skills in bio object
+    if (bio.skills.length > 0) {
+      //if there are, append HTMLskillsStart to section.
+      $("#header").append(HTMLskillsStart);
+      //for each skills in array, append the formatted skill
+      for (var i = 0; i < bio.skills.length; i++){
+        var skillString = HTMLskills.replace('%data%', bio.skills[i]);
+        $("#skills").append(skillString);
+      };
+    }
+    else {
+      console.log('No skills in bio.skills array');
+    };
+  }
 };
 /* valid JSON */
 
@@ -28,7 +54,24 @@ var work = {
       "dates": "December 2015 to January 2016",
       "description": "Developed a web application with a team of Statistics New Zealand employees and university students."
     } 
-  ]
+  ],
+  "display": function () {
+  /* Append work object.jobs to the HTML */
+    $("#workExperience").append(HTMLworkStart);
+    for (jobIndex in work.jobs) {
+      var thisEmployer = HTMLworkEmployer.replace('%data%', work.jobs[jobIndex].employer);
+      var thisJobTitle = HTMLworkTitle.replace('%data%', work.jobs[jobIndex].title);
+      var thisJob = thisEmployer + thisJobTitle;
+      var thisDates = HTMLworkDates.replace('%data%', work.jobs[jobIndex].dates);
+      var thisLocation = HTMLworkLocation.replace('%data%', work.jobs[jobIndex].location);
+      var thisDescription = HTMLworkDescription.replace('%data%', work.jobs[jobIndex].description);
+
+      $(".work-entry:last").append(thisJob);
+      $(".work-entry:last").append(thisDates);
+      $(".work-entry:last").append(thisLocation);
+      $(".work-entry:last").append(thisDescription);
+    }
+  }
 };
 /* valid JSON */
 
@@ -64,7 +107,29 @@ var education = {
         "url": "http://www.victoria.ac.nz/"
       }
   ],
-  "onlineCourses": []
+  "onlineCourses": [],
+  "display": function () {
+    for (var school in schools) {
+      $("#education").append(HTMLschoolStart);
+
+      var schoolName = HTMLschoolName.replace("#", education.schools[school].url);
+      schoolName = schoolName.replace('%data', education.schools[school]);
+      var schoolLocation = HTMLschool.replace('%data', education.schools[school].location);
+      var schoolDates = HTMLschool.replace('%data', education.schools[school].dates);
+      var schoolDegree = HTMLschoolDegree.replace('%data', education.schools[school].degree);
+      var schoolMajors = function () {
+        var schoolMajorsHTML = "";
+/*        for (//) {
+          // concat major
+        };
+*/        return schoolMajorsHTML;
+      }
+      var schoolUrl = HTMLschool
+
+      //append the above variables
+
+    }
+  }
 };
 /* valid JSON */
 
@@ -117,48 +182,12 @@ projects.display = function () {
     //break on the last array element to avoid iterating over this function
   }
 };
+
+bio.display();
+
 projects.display();
 
-/* Append bio except for skills to the HTML */
-var formattedName = HTMLheaderName.replace('%data%', bio["name"]);
-var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
-$("#header").append(formattedName);
-$("#header").append(formattedRole);
-
-/* Append bio.skills to the HTML */
-//check if there are any skills in bio object
-if (bio.skills.length > 0) {
-  //if there are, append HTMLskillsStart to section.
-  $("#header").append(HTMLskillsStart);
-  //for each skills in array, append the formatted skill
-  for (var i = 0; i < bio.skills.length; i++){
-    var skillString = HTMLskills.replace('%data%', bio.skills[i]);
-    $("#skills").append(skillString);
-  };
-}
-else {
-  console.log('No skills in bio.skills array');
-};
-
-function displayWork () {
-  /* Append work object.jobs to the HTML */
-  $("#workExperience").append(HTMLworkStart);
-  for (jobIndex in work.jobs) {
-    var thisEmployer = HTMLworkEmployer.replace('%data%', work.jobs[jobIndex].employer);
-    var thisJobTitle = HTMLworkTitle.replace('%data%', work.jobs[jobIndex].title);
-    var thisJob = thisEmployer + thisJobTitle;
-    var thisDates = HTMLworkDates.replace('%data%', work.jobs[jobIndex].dates);
-    var thisLocation = HTMLworkLocation.replace('%data%', work.jobs[jobIndex].location);
-    var thisDescription = HTMLworkDescription.replace('%data%', work.jobs[jobIndex].description);
-
-    $(".work-entry:last").append(thisJob);
-    $(".work-entry:last").append(thisDates);
-    $(".work-entry:last").append(thisLocation);
-    $(".work-entry:last").append(thisDescription);
-  }
-}
-
-displayWork();
+work.display();
 
 
 /* Name internationalizer - formats name capitalisation and cardinality of names */
