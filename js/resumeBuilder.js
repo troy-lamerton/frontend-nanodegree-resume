@@ -35,7 +35,6 @@ var bio = {
     };
   }
 };
-/* valid JSON */
 
 /* WORK EXPERIENCE */
 var work = {
@@ -73,7 +72,6 @@ var work = {
     }
   }
 };
-/* valid JSON */
 
 /* EDUCATION */
 /*education contains an array of schools. 
@@ -157,7 +155,6 @@ var projects = [
     "https://i.ytimg.com/vi/axEZqMBjiPI/maxresdefault.jpg"]
   }
 ];
-/* valid JSON */
 
 projects.display = function () {
   for (var proj in projects) {
@@ -207,4 +204,4 @@ function inName (firstName, lastName) {
   return bio.name;
 }
 
-$("#mapDiv").append(googleMap);
+$("#mapDiv").append(googleMap); /* isn't working, need an API key and not sure how to use */
