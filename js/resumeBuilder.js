@@ -93,7 +93,33 @@ var projects = [
 ];
 /* valid JSON */
 
+projects.display = function () {
+  for (var proj in projects) {
+    $("#projects").append(HTMLprojectStart);
+    var projTitle = HTMLprojectTitle.replace('%data%', projects[proj].title);
+    var projDates = HTMLprojectDates.replace('%data%', projects[proj].dates);
+    var projDescription = HTMLprojectDescription.replace('%data%', projects[proj].description);
+    var projImages = function () {
+      var projImagesHTML = "";
+      for (var imageIndex in projects[proj].images){
+        projImagesHTML += HTMLprojectImage.replace('%data%', projects[proj].images[imageIndex]);
+      };
+      return projImagesHTML;
+    };
 
+    $(".project-entry:last").append(projTitle);
+    $(".date-text:last").append(projDates);
+    $(".project-entry:last").append(projDescription);
+    $(".project-entry:last").append(projImages());
+  }
+};
+projects.display();
+
+/* Append bio except for skills to the HTML */
+var formattedName = HTMLheaderName.replace('%data%', bio["name"]);
+var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
+$("#header").append(formattedName);
+$("#header").append(formattedRole);
 
 /* Append bio.skills to the HTML */
 //check if there are any skills in bio object
@@ -131,7 +157,6 @@ function displayWork () {
 displayWork();
 
 
-
 /* Name internationalizer - formats name capitalisation and cardinality of names */
 $("#main").append(internationalizeButton);
 
@@ -145,9 +170,3 @@ function inName (firstName, lastName) {
   console.log(bio.name);
   return bio.name;
 }
-
-/* Append bio except for skills to the HTML */
-var formattedName = HTMLheaderName.replace('%data%', bio["name"]);
-var formattedRole = HTMLheaderRole.replace('%data%', bio["role"]);
-$("#header").append(formattedName);
-$("#header").append(formattedRole);
