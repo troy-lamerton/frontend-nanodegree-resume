@@ -86,7 +86,8 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+  /* Log to console where the user clicks */
+  console.log(["X: " + loc.pageX, "Y: " +  loc.pageY]);
 });
 
 
