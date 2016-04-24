@@ -78,7 +78,7 @@ and an images array with
 URL strings for project images. **/
 var projects = [
   {
-    "title": "One Rule - Arcade Game",
+    "title": "Win Condition - Arcade Game",
     "dates": "Weekend in September 2015",
     "description": "48-hour game design competition. We created a ball shooting puzzle game with various levels and powerups.",
     "images": ["https://raw.githubusercontent.com/Cambis/Pixel_Jam/master/Pixel_Jam/src/game/assets/start960by540.png"]
@@ -95,6 +95,7 @@ var projects = [
 
 projects.display = function () {
   for (var proj in projects) {
+
     $("#projects").append(HTMLprojectStart);
     var projTitle = HTMLprojectTitle.replace('%data%', projects[proj].title);
     var projDates = HTMLprojectDates.replace('%data%', projects[proj].dates);
@@ -102,15 +103,18 @@ projects.display = function () {
     var projImages = function () {
       var projImagesHTML = "";
       for (var imageIndex in projects[proj].images){
+        //add img HTML for each image in the array
         projImagesHTML += HTMLprojectImage.replace('%data%', projects[proj].images[imageIndex]);
       };
       return projImagesHTML;
     };
 
     $(".project-entry:last").append(projTitle);
-    $(".date-text:last").append(projDates);
+    $(".project-entry:last").append(projDates);
     $(".project-entry:last").append(projDescription);
     $(".project-entry:last").append(projImages());
+    if (proj == projects.length - 1){break;} 
+    //break on the last array element to avoid iterating over this function
   }
 };
 projects.display();
@@ -170,3 +174,5 @@ function inName (firstName, lastName) {
   console.log(bio.name);
   return bio.name;
 }
+
+$("#mapDiv").append(googleMap);
